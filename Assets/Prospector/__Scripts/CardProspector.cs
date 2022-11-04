@@ -24,14 +24,12 @@ public int layoutID;
 
 public SlotDef slotDef;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    override public void OnMouseUpAsButton() {
+    // Call the CardClicked method on the Prospector singleton
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Prospector.S.CardClicked(this);
+    // Also call the base class (Card.cs) version of this method
+    base.OnMouseUpAsButton(); // a
+}
 }

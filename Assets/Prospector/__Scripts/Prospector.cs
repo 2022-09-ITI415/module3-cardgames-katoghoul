@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class Prospector : MonoBehaviour {
 
-	static public Prospector 	S;
+	static public Prospector S;
 
 	[Header("Set in Inspector")]
 	public TextAsset deckXML;
@@ -91,5 +91,201 @@ public class Prospector : MonoBehaviour {
 
 		// CardProspectors in the tableau have the state CardState.tableau
 		cp.state = eCardState.tableau;
-		tableau.Add(cp);
-}}}
+		cp.SetSortingLayerName(tSD.layerName);
+		tableau.Add(cp);}
+
+	foreach (CardProspector tCP in tableau) {
+		foreach( int hid in tCP.slotDef.hiddenBy ) {
+		cp = FindCardByLayoutID(hid);
+		tCP.hiddenBy.Add(cp);}}
+
+
+		MoveToTarget(Draw ());
+		UpdateDrawPile();}
+
+
+	CardProspector FindCardByLayoutID(int layoutID) {
+	foreach (CardProspector tCP in tableau) {
+	// Search through all cards in the tableau List<>
+	if (tCP.layoutID == layoutID) {
+		// If the card has the same ID, return it
+	return( tCP );}}
+	
+	
+	// If it's not found, return null
+	return( null );}
+
+	// This turns cards in the Mine face-up or face-down
+	void SetTableauFaces() {
+		foreach( CardProspector cd in tableau ) {
+
+		bool faceUp = true; // Assume the card will be face-up
+
+		foreach( CardProspector cover in cd.hiddenBy ) {
+		// If either of the covering cards are in the tableau
+
+		if (cover.state == eCardState.tableau) {
+		faceUp = false; }} // then this card is face-down
+	
+	
+		cd.faceUp = faceUp;}} // Set the value on the card
+	
+	
+
+
+
+
+
+
+void MoveToDiscard(CardProspector cd) {
+	// Set the state of the card to discard
+	cd.state = eCardState.discard;
+	discardPile.Add(cd); // Add it to the discardPile List<>
+	cd.transform.parent = layoutAnchor; // Update its transform parent
+
+	// Position this card on the discardPile
+	cd.transform.localPosition = new Vector3(
+	layout.multiplier.x * layout.discardPile.x,
+	layout.multiplier.y * layout.discardPile.y,
+	-layout.discardPile.layerID+0.5f );
+	cd.faceUp = true;
+	// Place it on top of the pile for depth sorting
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+	cd.SetSortOrder(-100+discardPile.Count);}
+	
+
+	// Make cd the new target card
+	void MoveToTarget(CardProspector cd) {
+	// If there is currently a target card, move it to discardPile
+		if (target != null) MoveToDiscard(target);
+		target = cd; // cd is the new target
+		cd.state = eCardState.target;
+		cd.transform.parent = layoutAnchor;
+
+		// Move to the target position
+		cd.transform.localPosition = new Vector3(
+		layout.multiplier.x * layout.discardPile.x,
+		layout.multiplier.y * layout.discardPile.y,
+		-layout.discardPile.layerID );
+		cd.faceUp = true; // Make it face-up
+
+		// Set the depth sorting
+		cd.SetSortingLayerName(layout.discardPile.layerName);
+		cd.SetSortOrder(0);}
+	
+// Arranges all the cards of the drawPile to show how many are left
+void UpdateDrawPile() {
+	CardProspector cd;
+
+	// Go through all the cards of the drawPile
+	for (int i=0; i<drawPile.Count; i++) {
+		cd = drawPile[i];
+		cd.transform.parent = layoutAnchor;
+
+		// Position it correctly with the layout.drawPile.stagger
+		Vector2 dpStagger = layout.drawPile.stagger;
+		cd.transform.localPosition = new Vector3(
+		layout.multiplier.x * (layout.drawPile.x + i*dpStagger.x),
+		layout.multiplier.y * (layout.drawPile.y + i*dpStagger.y),
+		-layout.drawPile.layerID+0.1f*i );
+		cd.faceUp = false; // Make them all face-down
+		cd.state = eCardState.drawpile;
+
+		// Set depth sorting
+		cd.SetSortingLayerName(layout.drawPile.layerName);
+		cd.SetSortOrder(-10*i);
+}
+}
+
+	public void CardClicked(CardProspector cd) {
+		// The reaction is determined by the state of the clicked card
+		switch (cd.state) {
+		case eCardState.target:
+		// Clicking the target card does nothing
+
+		break;
+
+		case eCardState.drawpile:
+		// Clicking any card in the drawPile will draw the next card
+		MoveToDiscard(target); // Moves the target to the discardPile
+		MoveToTarget(Draw()); // Moves the next drawn card to the target
+		UpdateDrawPile(); // Restacks the drawPile
+		break;
+	
+		case eCardState.tableau:
+		// Clicking a card in the tableau will check if it's a valid play
+	
+		bool validMatch = true;
+
+		if (!cd.faceUp) {
+		// If the card is face-down, it's not valid
+
+		validMatch = false;}
+
+		if (!AdjacentRank(cd, target)) {
+			// If it's not an adjacent rank, it's not valid
+			validMatch = false;}
+
+		if (!validMatch) return; // return if not valid
+		// If we got here, then: Yay! It's a valid card.
+	
+			tableau.Remove(cd); // Remove it from the tableau List
+			MoveToTarget(cd);
+			SetTableauFaces();
+			break;}
+
+			CheckForGameOver();}
+
+	void CheckForGameOver() {
+	// If the tableau is empty, the game is over
+	
+	if (tableau.Count==0) {
+		// Call GameOver() with a win
+		GameOver(true);}
+	return;
+
+		// If there are still cards in the draw pile, the game's not over
+	if (drawPile.Count>0) {
+	return;}
+
+	// Check for remaining valid plays
+	foreach ( CardProspector cd in tableau ) {
+		if (AdjacentRank(cd, target)) {
+		// If there is a valid play, the game's not over
+		return;}}
+
+
+
+	// Since there are no valid plays, the game is over
+	// Call GameOver with a loss
+	GameOver (false);}
+
+	// Called when the game is over. Simple for now, but expandable
+	void GameOver(bool won) {
+	if (won) {
+		print ("Game Over. You won! :)");
+	} else {
+		print ("Game Over. You Lost. :(");}
+
+	// Reload the scene, resetting the game
+	SceneManager.LoadScene("__Prospector_Scene_0");}
+
+
+	public bool AdjacentRank(CardProspector c0, CardProspector c1) {
+	// If either card is face-down, it's not adjacent.
+
+	if (!c0.faceUp || !c1.faceUp) return(false);
+	// If they are 1 apart, they are adjacent
+
+	if (Mathf.Abs(c0.rank - c1.rank) == 1) {
+	return(true);}
+
+
+	// If one is Ace and the other King, they are adjacent
+	if (c0.rank == 1 && c1.rank == 13) return(true);
+	if (c0.rank == 13 && c1.rank == 1) return(true);
+	// Otherwise, return false
+	return(false);}
+
+
+}
