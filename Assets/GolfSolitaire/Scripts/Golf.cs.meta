@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d1a583c252452c2498876025beda8a1f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - deckXML: {fileID: 4900000, guid: 5945663c3ea302f45af38f97541d71a1, type: 3}
+  - layoutXML: {fileID: 4900000, guid: b24ad27deb076b3499a61d1bef84dad4, type: 3}
+  - deck: {instanceID: 0}
+  - layout: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

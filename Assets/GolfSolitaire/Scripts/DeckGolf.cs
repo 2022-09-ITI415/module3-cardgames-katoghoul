@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Deck : MonoBehaviour {
+public class DeckGolf : MonoBehaviour {
 
 [Header("Set in Inspector")]
 	//Suits
@@ -38,7 +38,7 @@ public class Deck : MonoBehaviour {
 
 
 	// called by Prospector when it is ready
-	public void InitDeck(string deckXMLText) {
+	public void InitDeck(string deckXML2Text) {
 		// from page 576
 		if( GameObject.Find("_Deck") == null) {
 			GameObject anchorGO = new GameObject("_Deck");
@@ -56,16 +56,16 @@ public class Deck : MonoBehaviour {
 		
 		
 		// -------- end from page 576
-		ReadDeck (deckXMLText);
+		ReadDeck (deckXML2Text);
 		MakeCards();
 	}
 
 
 	// ReadDeck parses the XML file passed to it into Card Definitions
-	public void ReadDeck(string deckXMLText)
+	public void ReadDeck(string deckXML2Text)
 	{
 		xmlr = new PT_XMLReader ();
-		xmlr.Parse (deckXMLText);
+		xmlr.Parse (deckXML2Text);
 
 		// print a test line
 		string s = "xml[0] decorator [0] ";
@@ -124,8 +124,6 @@ public class Deck : MonoBehaviour {
 			// foramt is ##A, where ## in 11, 12, 13 and A is letter indicating suit
 			if (xCardDefs[i].HasAtt("face")){
 				cDef.face = xCardDefs[i].att ("face");
-
-				
 			}
 			cardDefs.Add (cDef);
 		} // for i < xCardDefs.Count
