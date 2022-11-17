@@ -36,33 +36,33 @@ public class Golf : MonoBehaviour{
 
 	void Awake() {
 		S = this; //"set up singleton for Prospector"
-		//SetUpUITexts();
+		SetUpUITexts();
 	}
-//	void SetUpUITexts()
-//    {
-//		//Set up the HighScore UI Text
-//		GameObject go = GameObject.Find("HighScore");
-//       if (go != null)
-//        {
-//			highScoreText = go.GetComponent<Text>();
-//        }
-//		int highScore = ScoreManager.HIGH_SCORE;
-//		string hScore = "High Score:" + Utils.AddCommasToNumber(highScore);
-//		go.GetComponent<Text>().text = hScore;
-//
-//		go = GameObject.Find("GameOver");
-//		if(go!= null)
-//        {
-//			gameOverText = go.GetComponent<Text>();
-//        }
-//		go = GameObject.Find("RoundResult");
-//		if(go != null)
-//        {
-//			roundResultText = go.GetComponent<Text>();
-//        }
-//
-//		ShowResultsUI(false);
-//    }
+	void SetUpUITexts()
+    {
+		//Set up the HighScore UI Text
+		GameObject go = GameObject.Find("HighScore");
+       if (go != null)
+        {
+			highScoreText = go.GetComponent<Text>();
+        }
+		int highScore = ScoreManager.HIGH_SCORE;
+		string hScore = "High Score:" + Utils.AddCommasToNumber(highScore);
+		go.GetComponent<Text>().text = hScore;
+
+		go = GameObject.Find("GameOver");
+		if(go!= null)
+        {
+			gameOverText = go.GetComponent<Text>();
+        }
+		go = GameObject.Find("RoundResult");
+		if(go != null)
+        {
+			roundResultText = go.GetComponent<Text>();
+        }
+
+		ShowResultsUI(false);
+    }
 
 	void ShowResultsUI(bool show)
     {
@@ -251,7 +251,7 @@ public class Golf : MonoBehaviour{
                 MoveToTarget(Draw());
                 UpdateDrawPile();
 				ScoreManager.EVENT(eScoreEvent.draw);
-				FloatingScoreHandler(eScoreEvent.draw);
+//				FloatingScoreHandler(eScoreEvent.draw);
 				break;
 
             case eCardState.tableau:
@@ -270,7 +270,7 @@ public class Golf : MonoBehaviour{
                 MoveToTarget(cd); //Make it the target card
 				SetTableauFaces();
 				ScoreManager.EVENT(eScoreEvent.mine);
-				FloatingScoreHandler(eScoreEvent.mine);
+	//			FloatingScoreHandler(eScoreEvent.mine);
                 break;
         }
 		CheckForGameOver();
@@ -310,7 +310,7 @@ public class Golf : MonoBehaviour{
 			ShowResultsUI(true);
 			//print("Game Over. You won! :)");
 			ScoreManager.EVENT(eScoreEvent.gameWin);
-			FloatingScoreHandler(eScoreEvent.gameWin);
+//			FloatingScoreHandler(eScoreEvent.gameWin);
         } else
         {
 			gameOverText.text = "Game Over";
@@ -326,7 +326,7 @@ public class Golf : MonoBehaviour{
 
 			//print("Game Over. You lost. :(");
 			ScoreManager.EVENT(eScoreEvent.gameLoss);
-			FloatingScoreHandler(eScoreEvent.gameLoss);
+//			FloatingScoreHandler(eScoreEvent.gameLoss);
         }
 		//reload the scene, resetting the game
 		SceneManager.LoadScene("Golf Solitaire");
@@ -359,51 +359,51 @@ public class Golf : MonoBehaviour{
         return (false);
     }
 
-	void FloatingScoreHandler(eScoreEvent evt)
-    {
-		List<Vector2> fsPts;
-        switch (evt)
-        {
-			case eScoreEvent.draw:
-			case eScoreEvent.gameWin:
-			case eScoreEvent.gameLoss:
-				if(fsRun != null)
-                {
-					fsPts = new List<Vector2>();
-					fsPts.Add(fsPosRun);
-					fsPts.Add(fsPosMid2);
-					fsPts.Add(fsPosEnd);
-					fsRun.reportFinishTo = Scoreboard.S.gameObject;
-					fsRun.Init(fsPts, 0, 1);
+	//void FloatingScoreHandler(eScoreEvent evt)
+   // {
+	//	List<Vector2> fsPts;
+     //   switch (evt)
+     //   {
+	//		case eScoreEvent.draw:
+	//		case eScoreEvent.gameWin:
+	//		case eScoreEvent.gameLoss:
+	//			if(fsRun != null)
+     //           {
+	//				fsPts = new List<Vector2>();
+	//				fsPts.Add(fsPosRun);
+	//				fsPts.Add(fsPosMid2);
+	//				fsPts.Add(fsPosEnd);
+	//				fsRun.reportFinishTo = Scoreboard.S.gameObject;
+	//				fsRun.Init(fsPts, 0, 1);
 
 					//Adjusts fontSize
-					fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
-					fsRun = null; //clear fsRun so it's created again
-                }
-				break;
+	//				fsRun.fontSizes = new List<float>(new float[] { 28, 36, 4 });
+	//				fsRun = null; //clear fsRun so it's created again
+    //            }
+	//			break;
 
-			case eScoreEvent.mine:
-				FloatingScore fs;
-				Vector2 p0 = Input.mousePosition;
-				p0.x /= Screen.width;
-				p0.y /= Screen.height;
-				fsPts = new List<Vector2>();
-				fsPts.Add(p0);
-				fsPts.Add(fsPosMid);
-				fsPts.Add(fsPosRun);
-				fs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN, fsPts);
-				fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
-				if (fsRun == null)
-                {
-					fsRun = fs;
-					fsRun.reportFinishTo = null;
-                } else
-                {
-					fs.reportFinishTo = fsRun.gameObject;
-                }
-				break;
-		}
-	}
+	//		case eScoreEvent.mine:
+	//			FloatingScore fs;
+	//			Vector2 p0 = Input.mousePosition;
+	//			p0.x /= Screen.width;
+	//			p0.y /= Screen.height;
+	//			fsPts = new List<Vector2>();
+	//			fsPts.Add(p0);
+	//			fsPts.Add(fsPosMid);
+	//			fsPts.Add(fsPosRun);
+	//			fs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN, fsPts);
+	//			fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
+	//			if (fsRun == null)
+    //            {
+	//				fsRun = fs;
+	//				fsRun.reportFinishTo = null;
+    //            } else
+   //             {
+	//				fs.reportFinishTo = fsRun.gameObject;
+    //            }
+	//			break;
+	//	}
+//	}
 }
 
 }

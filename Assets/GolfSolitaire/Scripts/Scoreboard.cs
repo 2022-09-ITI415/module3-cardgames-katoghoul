@@ -8,7 +8,7 @@ public class Scoreboard : MonoBehaviour{
 public static Scoreboard S;
 
 [Header("Set in Inspector")]
-public GameObject prefabFloatingScore;
+//public GameObject prefabFloatingScore;
 
 [Header("Set Dynamically")]
 [SerializeField] private int _score = 0;
@@ -51,15 +51,15 @@ public void FSCallback(FloatingScore fs) {
 
     // It also returns a pointer to the FloatingScore created so that the
     // calling function can do more with it (like set fontSizes, and so on)
-public FloatingScore CreateFloatingScore(int amt, List<Vector2> pts) {
+//public FloatingScore CreateFloatingScore(int amt, List<Vector2> pts) {
 
-    GameObject go = Instantiate <GameObject> (prefabFloatingScore);
-    go.transform.SetParent( canvasTrans );
-    FloatingScore fs = go.GetComponent<FloatingScore>();
-    fs.score = amt;
-    fs.reportFinishTo = this.gameObject; // Set fs to call back to this
-    fs.Init(pts);
-    return(fs);}
+ //   GameObject go = Instantiate <GameObject> (prefabFloatingScore);
+ //   go.transform.SetParent( canvasTrans );
+ //   FloatingScore fs = go.GetComponent<FloatingScore>();
+ //   fs.score = amt;
+ //   fs.reportFinishTo = this.gameObject; // Set fs to call back to this
+ //   fs.Init(pts);
+ //   return(fs);}
 
 
 
