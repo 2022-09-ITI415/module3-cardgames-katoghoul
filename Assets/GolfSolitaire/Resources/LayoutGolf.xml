@@ -12,46 +12,46 @@
 	<!-- hiddenby is the ids of cards that keep a card face-down -->
 	
 	<!-- Column1, the leftmost column of cards. -->
-	<slot id="0" x="-7" y="5" faceup="0" layer="0" />
-	<slot id="1" x="-7"  y="4" faceup="0" layer="1" hiddenby="0" />
-	<slot id="2" x="-7"  y="3" faceup="0" layer="2" hiddenby="1" />
-	<slot id="3" x="-7" y="2" faceup="0" layer="3" hiddenby="2" />
-	<slot id="4" x="-7" y="1" faceup="1" layer="4" hiddenby="3" />
+	<slot id="0" x="-7" y="5" faceup="0" layer="0" hiddenby="1"/>
+	<slot id="1" x="-7"  y="4" faceup="0" layer="1" hiddenby="2" />
+	<slot id="2" x="-7"  y="3" faceup="0" layer="2" hiddenby="3" />
+	<slot id="3" x="-7" y="2" faceup="0" layer="3" hiddenby="4"  />
+	<slot id="4" x="-7" y="1" faceup="1" layer="4" />
 	
 	<!-- Column2, the second column of cards. -->
-	<slot id="5" x="-5" y="5" faceup="0" layer="0" />
-	<slot id="6" x="-5"  y="4" faceup="0" layer="1" hiddenby="5" />
-	<slot id="7" x="-5"  y="3" faceup="0" layer="2" hiddenby="6" />
-	<slot id="8" x="-5"  y="2" faceup="0" layer="3" hiddenby="7" />
-	<slot id="9" x="-5" y="1" faceup="1" layer="4" hiddenby="8" />
+	<slot id="5" x="-5" y="5" faceup="0" layer="0" hiddenby="6"/>
+	<slot id="6" x="-5"  y="4" faceup="0" layer="1" hiddenby="7" />
+	<slot id="7" x="-5"  y="3" faceup="0" layer="2" hiddenby="8" />
+	<slot id="8" x="-5"  y="2" faceup="0" layer="3" hiddenby="9" />
+	<slot id="9" x="-5" y="1" faceup="1" layer="4" />
 	
 	<!-- Column3, the third column of cards. -->
-	<slot id="10" x="-3" y="5" faceup="0" layer="0" />
-	<slot id="11" x="-3"  y="4" faceup="0" layer="1" hiddenby="10" />
-	<slot id="12" x="-3"  y="3" faceup="0" layer="2" hiddenby="11" />
-	<slot id="13" x="-3"  y="2" faceup="0" layer="3" hiddenby="12" />
-	<slot id="14" x="-3" y="1" faceup="1" layer="4" hiddenby="13" />
+	<slot id="10" x="-3" y="5" faceup="0" layer="0" hiddenby="11"/>
+	<slot id="11" x="-3"  y="4" faceup="0" layer="1" hiddenby="12" />
+	<slot id="12" x="-3"  y="3" faceup="0" layer="2" hiddenby="13" />
+	<slot id="13" x="-3"  y="2" faceup="0" layer="3" hiddenby="14" />
+	<slot id="14" x="-3" y="1" faceup="1" layer="4" />
 
 	<!-- Column4, the fourth column of cards. -->
-	<slot id="15" x="-1" y="5" faceup="0" layer="0" />
-	<slot id="16" x="-1"  y="4" faceup="0" layer="1" hiddenby="15" />
-	<slot id="17" x="-1"  y="3" faceup="0" layer="2" hiddenby="16" />
-	<slot id="18" x="-1"  y="2" faceup="0" layer="3" hiddenby="17" />
-	<slot id="19" x="-1" y="1" faceup="1" layer="4" hiddenby="18" />
+	<slot id="15" x="-1" y="5" faceup="0" layer="0" hiddenby="16"/>
+	<slot id="16" x="-1"  y="4" faceup="0" layer="1" hiddenby="17" />
+	<slot id="17" x="-1"  y="3" faceup="0" layer="2" hiddenby="18" />
+	<slot id="18" x="-1"  y="2" faceup="0" layer="3" hiddenby="19" />
+	<slot id="19" x="-1" y="1" faceup="1" layer="4" />
 
 	<!-- Column5, the fifth column of cards. -->
-	<slot id="20" x="1" y="5" faceup="0" layer="0" />
-	<slot id="21" x="1"  y="4" faceup="0" layer="1" hiddenby="20" />
-	<slot id="22" x="1"  y="3" faceup="0" layer="2" hiddenby="21" />
-	<slot id="23" x="1"  y="2" faceup="0" layer="3" hiddenby="21" />
-	<slot id="24" x="1" y="1" faceup="1" layer="4" hiddenby="23" />
+	<slot id="20" x="1" y="5" faceup="0" layer="0" hiddenby="21"/>
+	<slot id="21" x="1"  y="4" faceup="0" layer="1" hiddenby="22" />
+	<slot id="22" x="1"  y="3" faceup="0" layer="2" hiddenby="23" />
+	<slot id="23" x="1"  y="2" faceup="0" layer="3" hiddenby="24" />
+	<slot id="24" x="1" y="1" faceup="1" layer="4" />
 
 	<!-- Column6, the rightmost column of cards. -->
-	<slot id="25" x="3" y="5" faceup="0" layer="0" />
-	<slot id="26" x="3"  y="4" faceup="0" layer="1" hiddenby="25" />
-	<slot id="27" x="3"  y="3" faceup="0" layer="2" hiddenby="26" />
-	<slot id="28" x="3"  y="2" faceup="0" layer="3" hiddenby="27" />
-	<slot id="29" x="3" y="1" faceup="1" layer="4" hiddenby="28" />
+	<slot id="25" x="3" y="5" faceup="0" layer="0" hiddenby="26"/>
+	<slot id="26" x="3"  y="4" faceup="0" layer="1" hiddenby="27" />
+	<slot id="27" x="3"  y="3" faceup="0" layer="2" hiddenby="28" />
+	<slot id="28" x="3"  y="2" faceup="0" layer="3" hiddenby="29" />
+	<slot id="29" x="3" y="1" faceup="1" layer="4" />
 	
 	 <!--This positions the draw pile and staggers it-->
 	<slot type="drawpile" x="4" y="-4" xstagger="0.15" layer="5"/>

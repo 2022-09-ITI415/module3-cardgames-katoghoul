@@ -174,6 +174,7 @@ public class Golf : MonoBehaviour{
 				//if either of the covering cards are in the tableau
 				if(cover.state == eCardState.tableau)
                 {
+					
 					faceUp = false; //then this card is face-down
                 }
             }
@@ -308,7 +309,7 @@ public class Golf : MonoBehaviour{
 			gameOverText.text = "Round Over";
 			roundResultText.text = "You won this round!\nRound Score:" + score;
 			ShowResultsUI(true);
-			//print("Game Over. You won! :)");
+			print("Game Over. You won! :)");
 			ScoreManager.EVENT(eScoreEvent.gameWin);
 //			FloatingScoreHandler(eScoreEvent.gameWin);
         } else
@@ -324,12 +325,12 @@ public class Golf : MonoBehaviour{
             }
 			ShowResultsUI(true);
 
-			//print("Game Over. You lost. :(");
+			print("Game Over. You lost. :(");
 			ScoreManager.EVENT(eScoreEvent.gameLoss);
 //			FloatingScoreHandler(eScoreEvent.gameLoss);
         }
 		//reload the scene, resetting the game
-		SceneManager.LoadScene("Golf Solitaire");
+		SceneManager.LoadScene("GolfSolitaire");
 
 		//Reload the scene in reloadDelay secords
 		//This will give the score a moment to travel
