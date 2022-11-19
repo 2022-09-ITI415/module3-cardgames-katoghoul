@@ -124,6 +124,8 @@ public class Deck : MonoBehaviour {
 			// foramt is ##A, where ## in 11, 12, 13 and A is letter indicating suit
 			if (xCardDefs[i].HasAtt("face")){
 				cDef.face = xCardDefs[i].att ("face");
+
+				
 			}
 			cardDefs.Add (cDef);
 		} // for i < xCardDefs.Count
